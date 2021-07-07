@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/babay15/product-app/controller"
 	"github.com/babay15/product-app/middleware"
+	repository2 "github.com/babay15/product-app/repository"
 	"github.com/babay15/product-app/service"
 	"github.com/gin-gonic/gin"
 	gindump "github.com/tpkeeper/gin-dump"
@@ -12,7 +13,8 @@ import (
 )
 
 var (
-	productService service.ProductService = service.New()
+	repository repository2.Repository = repository2.NewRepository()
+	productService service.ProductService = service.New(repository)
 	loginService service.LoginService = service.NewLoginService()
 	jwtService service.JWTService = service.NewJWTService()
 
@@ -26,6 +28,7 @@ func createLogOutput() {
 }
 
 func main() {
+	defer repository.CloseDB()
 
 	createLogOutput()
 
@@ -57,16 +60,16 @@ func main() {
 	})
 
 	//To group the server into a path
-	apiRoutes := server.Group("/api", middleware.JwtAuth())
+	productRoutes := server.Group("/api/products", middleware.JwtAuth())
 	{
 		//Calling the controller
-		apiRoutes.GET("/products", func(ctx *gin.Context) {
-			ctx.JSON(200, productController.FindAll())
+		productRoutes.GET("/all", func(ctx *gin.Context) {
+			ctx.JSON(200, productController.FindAllProducts())
 		})
 
 		//Calling the controller
-		apiRoutes.POST("/save", func(ctx *gin.Context) {
-			err := productController.Save(ctx)
+		productRoutes.POST("/save", func(ctx *gin.Context) {
+			err := productController.SaveProduct(ctx)
 			if err!=nil {
 				ctx.JSON(http.StatusBadRequest, gin.H{
 					"code" : http.StatusBadRequest,
@@ -75,7 +78,95 @@ func main() {
 			} else {
 				ctx.JSON(200, gin.H{
 					"code" : http.StatusOK,
-					"message" : "Product succesfully saved",
+					"message" : "Product successfully saved",
+				})
+			}
+		})
+
+		//Calling the controller
+		productRoutes.POST("/update:id", func(ctx *gin.Context) {
+			err := productController.UpdateProduct(ctx)
+			if err!=nil {
+				ctx.JSON(http.StatusBadRequest, gin.H{
+					"code" : http.StatusBadRequest,
+					"error": err.Error(),
+				})
+			} else {
+				ctx.JSON(200, gin.H{
+					"code" : http.StatusOK,
+					"message" : "Product successfully updated",
+				})
+			}
+		})
+
+		//Calling the controller
+		productRoutes.POST("/delete:id", func(ctx *gin.Context) {
+			err := productController.DeleteProduct(ctx)
+			if err!=nil {
+				ctx.JSON(http.StatusBadRequest, gin.H{
+					"code" : http.StatusBadRequest,
+					"error": err.Error(),
+				})
+			} else {
+				ctx.JSON(200, gin.H{
+					"code" : http.StatusOK,
+					"message" : "Product successfully deleted",
+				})
+			}
+		})
+	}
+
+	brandRoutes := server.Group("/api/brands", middleware.JwtAuth())
+	{
+		//Calling the controller
+		brandRoutes.GET("/all", func(ctx *gin.Context) {
+			ctx.JSON(200, productController.FindAllBrands())
+		})
+
+		//Calling the controller
+		brandRoutes.POST("/save", func(ctx *gin.Context) {
+			err := productController.SaveBrand(ctx)
+			if err!=nil {
+				ctx.JSON(http.StatusBadRequest, gin.H{
+					"code" : http.StatusBadRequest,
+					"error": err.Error(),
+				})
+			} else {
+				ctx.JSON(200, gin.H{
+					"code" : http.StatusOK,
+					"message" : "Brand successfully saved",
+				})
+			}
+		})
+
+		//Calling the controller
+		brandRoutes.POST("/update:id", func(ctx *gin.Context) {
+			err := productController.UpdateBrand(ctx)
+			if err!=nil {
+				ctx.JSON(http.StatusBadRequest, gin.H{
+					"code" : http.StatusBadRequest,
+					"error": err.Error(),
+				})
+			} else {
+				ctx.JSON(200, gin.H{
+					"code" : http.StatusOK,
+					"message" : "Brand successfully updated",
+				})
+			}
+		})
+
+		//Calling the controller
+		brandRoutes.POST("/delete:id", func(ctx *gin.Context) {
+			err := productController.DeleteBrand(ctx)
+			if err!=nil {
+				ctx.JSON(http.StatusBadRequest, gin.H{
+					"code" : http.StatusBadRequest,
+					"error": err.Error(),
+				})
+			} else {
+				ctx.JSON(200, gin.H{
+					"code" : http.StatusOK,
+					"message" : "Brand successfully deleted",
 				})
 			}
 		})

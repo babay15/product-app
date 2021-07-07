@@ -12,28 +12,37 @@
 	- header.html
 	- index.html
 
-[GIN-debug] GET    /api/products             --> main.main.func1 (7 handlers)
-[GIN-debug] POST   /api/save                 --> main.main.func2 (7 handlers)
-[GIN-debug] GET    /view/products            --> github.com/babay15/gin-gonic-jwt/controller.ProductController.ShowProduct-fm (6 handlers)
+[GIN-debug] POST   /login                    --> main.main.func1 (6 handlers)
+[GIN-debug] GET    /api/products/all         --> main.main.func2 (7 handlers)
+[GIN-debug] POST   /api/products/save        --> main.main.func3 (7 handlers)
+[GIN-debug] POST   /api/products/update:id   --> main.main.func4 (7 handlers)
+[GIN-debug] POST   /api/products/delete:id   --> main.main.func5 (7 handlers)
+[GIN-debug] GET    /api/brands/all           --> main.main.func6 (7 handlers)
+[GIN-debug] POST   /api/brands/save          --> main.main.func7 (7 handlers)
+[GIN-debug] POST   /api/brands/update:id     --> main.main.func8 (7 handlers)
+[GIN-debug] POST   /api/brands/delete:id     --> main.main.func9 (7 handlers)
+[GIN-debug] GET    /view/products            --> github.com/babay15/product-app/controller.ProductController.ShowProduct-fm (6 handlers)
 [GIN-debug] Listening and serving HTTP on :5000
+::1 - [08 Jul 21 02:38 +07] - POST - /api/product/save - 404 - 999.4µs 
+[GIN] 2021/07/08 - 02:38:54 | 404 |       2.004ms |             ::1 | POST     "/api/product/save"
+::1 - [08 Jul 21 02:38 +07] - POST - /api/products/save - 400 - 4ms 
+[GIN] 2021/07/08 - 02:38:59 | 400 |           4ms |             ::1 | POST     "/api/products/save"
+[GIN] 2021/07/08 - 02:40:23 | 500 |      4.0257ms |             ::1 | POST     "/api/brands/save"
+::1 - [08 Jul 21 02:40 +07] - POST - /api/brands/save - 401 - 2.0715ms 
+[GIN] 2021/07/08 - 02:40:51 | 401 |      3.0113ms |             ::1 | POST     "/api/brands/save"
+::1 - [08 Jul 21 02:40 +07] - POST - /login - 200 - 2.0105ms 
+[GIN] 2021/07/08 - 02:40:58 | 200 |      2.0105ms |             ::1 | POST     "/login"
 [GIN-debug] [WARNING] Headers were already written. Wanted to override status code 400 with 200
-::1 - [06 Jul 21 23:30 +07] - POST - /api/save - 200 - 1.0021ms 
-[GIN] 2021/07/06 - 23:30:44 | 200 |      1.9998ms |             ::1 | POST     "/api/save"
+::1 - [08 Jul 21 02:41 +07] - POST - /api/brands/save - 200 - 14.9957ms 
+[GIN] 2021/07/08 - 02:41:11 | 200 |     14.9957ms |             ::1 | POST     "/api/brands/save"
 [GIN-debug] [WARNING] Headers were already written. Wanted to override status code 400 with 200
-::1 - [06 Jul 21 23:30 +07] - POST - /api/save - 200 - 1.0001ms 
-[GIN] 2021/07/06 - 23:30:45 | 200 |      1.0001ms |             ::1 | POST     "/api/save"
-[GIN-debug] [WARNING] Headers were already written. Wanted to override status code 400 with 200
-::1 - [06 Jul 21 23:30 +07] - POST - /api/save - 200 - 4.0174ms 
-[GIN] 2021/07/06 - 23:30:45 | 200 |      5.0159ms |             ::1 | POST     "/api/save"
-[GIN-debug] [WARNING] Headers were already written. Wanted to override status code 400 with 200
-::1 - [06 Jul 21 23:30 +07] - POST - /api/save - 200 - 1.0023ms 
-[GIN] 2021/07/06 - 23:30:45 | 200 |      1.0023ms |             ::1 | POST     "/api/save"
-[GIN-debug] [WARNING] Headers were already written. Wanted to override status code 400 with 200
-::1 - [06 Jul 21 23:30 +07] - POST - /api/save - 200 - 2.0017ms 
-[GIN] 2021/07/06 - 23:30:46 | 200 |      2.0017ms |             ::1 | POST     "/api/save"
-::1 - [06 Jul 21 23:30 +07] - GET - /api/products - 200 - 2.0416ms 
-[GIN] 2021/07/06 - 23:30:52 | 200 |      2.0416ms |             ::1 | GET      "/api/products"
-::1 - [06 Jul 21 23:30 +07] - GET - /view/products - 200 - 3.0012ms 
-[GIN] 2021/07/06 - 23:30:59 | 200 |      4.0046ms |             ::1 | GET      "/view/products"
-::1 - [06 Jul 21 23:30 +07] - GET - /favicon.ico - 404 - 1.0012ms 
-[GIN] 2021/07/06 - 23:30:59 | 404 |      1.0012ms |             ::1 | GET      "/favicon.ico"
+::1 - [08 Jul 21 02:41 +07] - POST - /api/products/save - 200 - 13.9973ms 
+[GIN] 2021/07/08 - 02:41:29 | 200 |     13.9973ms |             ::1 | POST     "/api/products/save"
+::1 - [08 Jul 21 02:41 +07] - GET - /api/products - 404 - 0s 
+[GIN] 2021/07/08 - 02:41:32 | 404 |       962.8µs |             ::1 | GET      "/api/products"
+::1 - [08 Jul 21 02:41 +07] - GET - /api/products/all - 200 - 7.0007ms 
+[GIN] 2021/07/08 - 02:41:47 | 200 |      8.0092ms |             ::1 | GET      "/api/products/all"
+::1 - [08 Jul 21 02:42 +07] - GET - /api/brands/all - 200 - 8.2807ms 
+[GIN] 2021/07/08 - 02:42:24 | 200 |      8.2807ms |             ::1 | GET      "/api/brands/all"
+::1 - [08 Jul 21 02:42 +07] - GET - /api/brands/all - 200 - 5.9989ms 
+[GIN] 2021/07/08 - 02:42:40 | 200 |      6.9987ms |             ::1 | GET      "/api/brands/all"
