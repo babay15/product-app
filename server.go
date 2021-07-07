@@ -47,12 +47,12 @@ func main() {
 			context.JSON(http.StatusOK, gin.H{
 				"code":http.StatusOK,
 				"token":token,
-			}) else {
-				context.JSON(http.StatusUnauthorized, gin.H{
-					"code":http.StatusUnauthorized,
-					"message":"You are not authorized to access this service",
-				})
-			}
+			})
+		} else {
+			context.JSON(http.StatusUnauthorized, gin.H{
+				"code":http.StatusUnauthorized,
+				"message":"You are not authorized to access this service",
+			})
 		}
 	})
 
