@@ -1,0 +1,29 @@
+{{ template "header.html" }}
+
+<div class="album py-4 bg-light">
+    <div class="container">
+        <div class="row">
+            <!-- Looping -->
+            {{range .products}}
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <img src="{{.Image}}" alt="{{.ID}}" border="0" height="100" width="130" style="max-width: 130px;">
+                            <p class="card-text">
+                                <h4>{{.Name}}</h4>
+                                <p>{{.Color}}<p/>
+                                <p>{{.Description}}</p>
+                                <p>{{.SalePrice}}</p>
+                                <p>{{.Quantity}}</p>
+                                <p>{{.Type}}</p>
+                                <p>{{.Brand.BrandName}}</p>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {{end}}
+        </div>
+    </div>
+</div>
+
+{{ template "footer.html" }}
