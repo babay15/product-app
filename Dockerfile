@@ -21,6 +21,7 @@ COPY . .
 
 #Set environment
 ENV PORT 5000
+ENV JWT_SECRET "babay15"
 
 #Build application
 RUN go build

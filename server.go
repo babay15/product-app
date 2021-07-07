@@ -13,7 +13,11 @@ import (
 
 var (
 	productService service.ProductService = service.New()
+	loginService service.LoginService = service.NewLoginService()
+	jwtService service.JWTService = service.NewJWTService()
+
 	productController controller.ProductController = controller.New(productService)
+	loginController controller.LoginController = controller.NewLoginController(loginService, jwtService)
 )
 
 func createLogOutput() {
@@ -37,8 +41,23 @@ func main() {
 	//Server Handler
 	server.Use(gin.Recovery(), middleware.Logger(), gindump.Dump())
 
+	server.POST("/login", func(context *gin.Context) {
+		token := loginController.Login(context)
+		if token != "" {
+			context.JSON(http.StatusOK, gin.H{
+				"code":http.StatusOK,
+				"token":token,
+			}) else {
+				context.JSON(http.StatusUnauthorized, gin.H{
+					"code":http.StatusUnauthorized,
+					"message":"You are not authorized to access this service",
+				})
+			}
+		}
+	})
+
 	//To group the server into a path
-	apiRoutes := server.Group("/api", middleware.BasicAuth())
+	apiRoutes := server.Group("/api", middleware.JwtAuth())
 	{
 		//Calling the controller
 		apiRoutes.GET("/products", func(ctx *gin.Context) {
